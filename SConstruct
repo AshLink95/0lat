@@ -33,11 +33,10 @@ def clean_cargo(target, source, env):
     return 0
 
 # Register builders
-rust_builder = Builder(action=build_rust, suffix='', src_suffix='.rs')
 cargo_builder = Builder(action=build_cargo, source_factory=Dir)
 
 # Environment
-env = Environment(BUILDERS={'Rust': rust_builder, 'Cargo': cargo_builder}, ENV={'PATH': environ['PATH']}, LIBS=['zmq'])
+env = Environment(BUILDERS={'Cargo': cargo_builder}, ENV={'PATH': environ['PATH']}, LIBS=['zmq'])
 
 # Build
 env.Program(out1, 'server.c')
