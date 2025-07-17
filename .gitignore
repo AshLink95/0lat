@@ -6,4 +6,4 @@ server
 # Auxiliary
 server.o
 .sconsign.dblite
-rust_client/target/
+**/target/
