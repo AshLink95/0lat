@@ -17,9 +17,9 @@ def run(file: str) -> None:
     subprocess.run(["./"+file])
 
 # Shut down sequence initiator
-def close(socket: zmq.SyncSocket) -> None:
+def close(socket: zmq.SyncSocket, client: str) -> None:
     socket.send_string("Out!")
-    print("Client Py requesting shutdown! sending code: Out!")
+    print(client," requesting shutdown! sending code: Out!")
 
 output = build("server", "logger")
 if output[2]:
@@ -28,9 +28,7 @@ if output[2]:
     logger = Thread(target=run, args=(output[1],), daemon=True)
     server.start()
     logger.start()
-
     sleep(0.1)
-
 
     # Tests
     context = zmq.Context()
@@ -92,23 +90,23 @@ if output[2]:
     socket3.send_string(send)
     print("Client Py 1 Sent: "+send)
     reply = socket3.recv_string()
-    print(f"Client Py Received: {reply}")
+    print(f"Client Py 1 Received: {reply}")
 
     send = "I just saw my squad. Area clear. Will initiate shut down sequence once on board."
     socket3.send_string(send)
     print("Client Py 1 Sent: "+send)
     reply = socket3.recv_string()
-    print(f"Client Py Received: {reply}")
+    print(f"Client Py 1 Received: {reply}")
 
     send = "Py 2 to Base. Py 1 is safe. Heading to Base!"
     socket2.send_string(send)
     print("Client Py 2 Sent: "+send)
     reply = socket2.recv_string()
-    print(f"Client Py Received: {reply}")
+    print(f"Client Py 2 Received: {reply}")
     socket2.close()
 
     ### System shut down request
-    close(socket3)
+    close(socket3, "Client Py 1")
     socket3.close()
 
     # Disconnet client

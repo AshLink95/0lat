@@ -5,16 +5,6 @@ out2 = ARGUMENTS.get("out2")
 SetOption('experimental', 'ninja')
 
 # Create builders
-def build_rust(target, source, env):
-    ret = 0
-    for t, s in zip(target, source):
-        cmd = f"rustc -o {t} {s}"
-        print(f"Running: {cmd}")
-        ret = env.Execute(cmd)
-        if (ret != 0):
-            break;
-    return ret
-
 def build_cargo(target, source, env):
     ret = 0
     for t, s in zip(target, source):
