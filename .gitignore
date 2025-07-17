@@ -1,0 +1,9 @@
+# Produced files
+logger
+server
+0server.log
+
+# Auxiliary
+server.o
+.sconsign.dblite
+rust_client/target/
